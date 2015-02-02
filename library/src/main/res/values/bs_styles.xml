@@ -1,0 +1,26 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="Base.BottomSheet" parent="Theme.AppCompat" />
+
+    <style name="Base.BottomSheet.Light" parent="Theme.AppCompat.Light" />
+
+    <!-- Theme used for the intent picker activity. -->
+    <style name="BottomSheet" parent="Base.BottomSheet">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="bottomSheetBackground">@color/bs_background_dark</item>
+    </style>
+
+    <style name="BottomSheet.Light" parent="Base.BottomSheet.Light">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="bottomSheetBackground">@color/bs_background_light</item>
+    </style>
+</resources>

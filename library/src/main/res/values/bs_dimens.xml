@@ -1,0 +1,5 @@
+<resources>
+    <dimen name="bs_max_width">600dp</dimen>
+    <dimen name="bs_share_icon">46dp</dimen>
+    <dimen name="bs_padding">16dp</dimen>
+</resources>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+    </style>
+
+    <style name="AppTheme.BottomSheet.Light" parent="BottomSheet.Light">
+        <!-- Customize your BottomSheet theme here. -->
+    </style>
+    <style name="AppTheme.BottomSheet" parent="BottomSheet">
+        <!-- Customize your BottomSheet theme here. -->
+        <!--<item name="bottomSheetBackground">#008800</item>-->
+    </style>
+</resources>
