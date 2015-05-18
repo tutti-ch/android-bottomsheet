@@ -60,7 +60,7 @@ public class BottomSheetExampleBaseActivity extends BottomSheetActivity {
     android:documentLaunchMode="never"
     android:relinquishTaskIdentity="true" />
 ```
-- ```java
+```java
 Intent bottomSheetIntent = new Intent(this, CustomBottomSheetActivity.class);
 BottomSheetActivity.startActivity(this, bottomSheetIntent); // Used so that bottom sheet animates upwards on start.
 ```
