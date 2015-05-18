@@ -60,7 +60,10 @@ public class BottomSheetExampleBaseActivity extends BottomSheetActivity {
     android:documentLaunchMode="never"
     android:relinquishTaskIdentity="true" />
 ```
-- ```startActivity(new Intent(this, CustomBottomSheetActivity.class));```
+- ```java
+Intent bottomSheetIntent = new Intent(this, CustomBottomSheetActivity.class);
+BottomSheetActivity.startActivity(this, bottomSheetIntent); // Used so that bottom sheet animates upwards on start.
+```
 
 For an example see the example directory.
 
@@ -81,7 +84,7 @@ For an example see the example directory.
 - Launch the ShareActivity with:
 
 ```java
-startActivity(BottomSheetChooserActivity.create(this)
+Intent bottomSheetIntent = BottomSheetChooserActivity.create(this)
     .forIntent(yourShareIntent)
     .title("Share")
     .icon(R.mipmap.ic_launcher)
@@ -89,7 +92,8 @@ startActivity(BottomSheetChooserActivity.create(this)
     // .priority("com.whatsapp", "com.facebook.katana", "com.facebook.orca",
     //        "com.google.android.gm", "com.google.android.talk",
     //        "com.google.android.apps.plus")
-    .getIntent());
+    .getIntent();
+BottomSheetActivity.startActivity(this, bottomSheetIntent); // Used so that bottom sheet animates upwards on start.
 ```
 
 ## License

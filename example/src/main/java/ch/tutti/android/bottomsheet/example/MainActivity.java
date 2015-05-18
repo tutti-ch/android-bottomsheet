@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import ch.tutti.android.bottomsheet.BottomSheetActivity;
 import ch.tutti.android.bottomsheet.BottomSheetChooserActivity;
 
 
@@ -50,21 +51,23 @@ public class MainActivity extends ActionBarActivity {
                         BottomSheetExampleBaseActivity.TITLE_TITLE);
                 break;
             case 4:
-                startActivity(BottomSheetChooserActivity.create(this)
+                Intent bottomSheetIntent = BottomSheetChooserActivity.create(this)
                         .forIntent(getShareIntent())
                         .title("Share")
                         .icon(R.mipmap.ic_launcher)
-                        .getIntent());
+                        .getIntent();
+                BottomSheetActivity.startActivty(this, bottomSheetIntent);
                 break;
             case 5:
-                startActivity(BottomSheetCustomChooserActivity.create(this)
+                bottomSheetIntent = BottomSheetCustomChooserActivity.create(this)
                         .forIntent(getShareIntent())
                         .title("Custom Share")
                         .icon(R.mipmap.ic_launcher)
                         .priority("com.whatsapp", "com.facebook.katana", "com.facebook.orca",
                                 "com.google.android.gm", "com.google.android.talk",
                                 "com.google.android.apps.plus")
-                        .getIntent());
+                        .getIntent();
+                BottomSheetActivity.startActivty(this, bottomSheetIntent);
                 break;
         }
     }
@@ -76,10 +79,10 @@ public class MainActivity extends ActionBarActivity {
     }
 
     private void openBottomSheet(Class<? extends Activity> activity, int list, int title) {
-        startActivity(
-                new Intent(this, activity)
-                        .putExtra(BottomSheetExampleBaseActivity.EXTRA_LIST, list)
-                        .putExtra(BottomSheetExampleBaseActivity.EXTRA_TITLE, title));
+        Intent bottomSheetIntent = new Intent(this, activity)
+                .putExtra(BottomSheetExampleBaseActivity.EXTRA_LIST, list)
+                .putExtra(BottomSheetExampleBaseActivity.EXTRA_TITLE, title);
+        BottomSheetActivity.startActivty(this, bottomSheetIntent);
     }
 
     private class ExampleAdapter extends RecyclerView.Adapter<ExampleAdapter.ViewHolder> {

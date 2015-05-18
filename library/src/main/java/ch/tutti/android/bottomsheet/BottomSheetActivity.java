@@ -1,7 +1,11 @@
 package ch.tutti.android.bottomsheet;
 
 import android.app.Activity;
+import android.app.ActivityOptions;
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.os.Bundle;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.StringRes;
 import android.support.v7.widget.RecyclerView;
@@ -24,6 +28,56 @@ public abstract class BottomSheetActivity extends Activity {
     private TextView mTitle;
 
     private ImageView mIcon;
+
+    private View findItemsView(ViewGroup viewGroup) {
+        for (int i = 0; i < viewGroup.getChildCount(); i++) {
+            View child = viewGroup.getChildAt(i);
+            if (child instanceof AbsListView
+                    || child instanceof RecyclerView
+                    || child instanceof ScrollView) {
+                return child;
+            }
+            if (child instanceof ViewGroup) {
+                View itemsView = findItemsView((ViewGroup) child);
+                if (itemsView != null) {
+                    return itemsView;
+                }
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public void finish() {
+        super.finish();
+        overridePendingTransition(0, R.anim.bottom_sheet_fall);
+    }
+
+    public boolean isBottomSheetCollapsed() {
+        return mResolverDrawerLayout.isCollapsed();
+    }
+
+    public void setBottomSheetIcon(@DrawableRes int drawableRes) {
+        mIcon.setImageResource(drawableRes);
+        updateIconVisibility();
+    }
+
+    public void setBottomSheetIcon(Drawable drawable) {
+        mIcon.setImageDrawable(drawable);
+        updateIconVisibility();
+    }
+
+    public void setBottomSheetTitle(@StringRes int textRes) {
+        mTitle.setText(textRes);
+    }
+
+    public void setBottomSheetTitle(CharSequence text) {
+        mTitle.setText(text);
+    }
+
+    public void setBottomSheetTitleVisible(boolean visible) {
+        mTitleBar.setVisibility(visible ? View.VISIBLE : View.GONE);
+    }
 
     @Override
     public void setContentView(int layoutResID) {
@@ -56,52 +110,15 @@ public abstract class BottomSheetActivity extends Activity {
         mResolverDrawerLayout.setOnClickOutsideListener(listener);
     }
 
-    public void setBottomSheetTitleVisible(boolean visible) {
-        mTitleBar.setVisibility(visible ? View.VISIBLE : View.GONE);
-    }
-
-    public void setBottomSheetTitle(@StringRes int textRes) {
-        mTitle.setText(textRes);
-    }
-
-    public void setBottomSheetTitle(CharSequence text) {
-        mTitle.setText(text);
-    }
-
-    public void setBottomSheetIcon(@DrawableRes int drawableRes) {
-        mIcon.setImageResource(drawableRes);
-        updateIconVisibility();
-    }
-
-    public void setBottomSheetIcon(Drawable drawable) {
-        mIcon.setImageDrawable(drawable);
-        updateIconVisibility();
+    /**
+     * Starts the new activity using a slide up animation.
+     */
+    public static void startActivty(Context context, Intent bottomSheetIntent) {
+        Bundle riseAnimBundle = ActivityOptions.makeCustomAnimation(context, R.anim.bottom_sheet_rise, 0).toBundle();
+        context.startActivity(bottomSheetIntent, riseAnimBundle);
     }
 
     private void updateIconVisibility() {
         mIcon.setVisibility(mIcon.getDrawable() != null ? View.VISIBLE : View.GONE);
-    }
-
-    public boolean isBottomSheetCollapsed() {
-        return mResolverDrawerLayout.isCollapsed();
-    }
-
-    private View findItemsView(ViewGroup viewGroup) {
-        for (int i = 0; i < viewGroup.getChildCount(); i++) {
-            View child = viewGroup.getChildAt(i);
-            if (child instanceof AbsListView
-                    || child instanceof RecyclerView
-//                    || "RecyclerView".equals(child.getClass().getSimpleName())
-                    || child instanceof ScrollView) {
-                return child;
-            }
-            if (child instanceof ViewGroup) {
-                View itemsView = findItemsView((ViewGroup) child);
-                if (itemsView != null) {
-                    return itemsView;
-                }
-            }
-        }
-        return null;
     }
 }
